@@ -50,12 +50,8 @@ const userSchema = new Schema<TUser, UserModel>(
       trim: true,
     },
     isActive: {
-      type: String,
-      enum: {
-        values: ['active', 'blocked'],
-        message: '{VALUE} is not a valid status',
-      },
-      default: 'active',
+      type: Boolean,
+      default: true,
     },
     hobbies: { type: [String], required: [true, 'Hobbies are required'] },
     address: { type: addressSchema, required: [true, 'Address is required'] },

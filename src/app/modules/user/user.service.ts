@@ -19,15 +19,15 @@ const getSingleUserFromDB = async (id: number) => {
   return result
 }
 
-const putUserIntoDB = async (id: number) => {
-  if (await !User.isUserExists(id)) {
-    throw new Error('User not found')
+const putUserIntoDB = async (id: number, updatedUserData: TUser) => {
+  if (!User.isUserExists(id)) {
+    return null
   }
-  const result = await User.updateOne({ id }, { isDeleted: true })
+  const result = await User.updateOne({ id }, { updatedUserData })
   return result
 }
 
-const deleteUserFromDB = async (id: string) => {
+const deleteUserFromDB = async (id: number) => {
   const result = await User.updateOne({ id }, { isDeleted: true })
   return result
 }

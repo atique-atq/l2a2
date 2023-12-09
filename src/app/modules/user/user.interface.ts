@@ -24,7 +24,7 @@ interface TUser {
   fullName: TFullName
   age: number
   email: string
-  isActive: 'active' | 'blocked'
+  isActive: boolean
   isDeleted: boolean
   hobbies: string[]
   address: TAddress
