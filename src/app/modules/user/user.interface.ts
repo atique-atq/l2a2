@@ -32,7 +32,7 @@ interface TUser {
 }
 
 export interface UserModel extends Model<TUser> {
-  isUserExists(id: string): Promise<TUser | null>
+  isUserExists(id: number): Promise<TUser | null>
 }
 
 export { TUser, TFullName, TAddress, TOrder }

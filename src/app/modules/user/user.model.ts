@@ -104,7 +104,7 @@ userSchema.pre('aggregate', function (next) {
   next()
 })
 
-userSchema.statics.isUserExists = async function (id: string) {
+userSchema.statics.isUserExists = async function (id: number) {
   const existingUser = await User.findOne({ id })
   return existingUser
 }
