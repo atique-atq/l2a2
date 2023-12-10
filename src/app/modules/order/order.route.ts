@@ -5,8 +5,11 @@ const router = express.Router()
 
 router.put('/:userId/orders', OrderControllers.addProductToUserOrders)
 
-router.get('/:userId', OrderControllers.getSingleUser)
+router.get('/:userId/orders', OrderControllers.getAllOrdersByUserId)
 
-router.get('/', OrderControllers.getAllUsers)
+router.get(
+  '/:userId/orders/total-price',
+  OrderControllers.getTotalPriceOfOrdersByUserId,
+)
 
 export const OrderRoutes = router
