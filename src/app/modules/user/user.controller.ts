@@ -1,6 +1,9 @@
 import { Request, Response } from 'express'
 import { UserServices } from './user.service'
-import userValidationSchema from './user.validation'
+import {
+  userSchema as userValidationSchema,
+  userUpdateSchema as userUpdateValidationSchema,
+} from './user.validation'
 
 const createUser = async (req: Request, res: Response) => {
   try {
@@ -28,7 +31,7 @@ const getAllUsers = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'Users are retrieved succesfully',
+      message: 'Users fetched successfully!',
       data: result,
     })
   } catch (err: any) {
@@ -63,9 +66,9 @@ const getSingleUser = async (req: Request, res: Response) => {
 const updateUser = async (req: Request, res: Response) => {
   try {
     const userId = Number(req.params.userId)
-    const updatedUserData = req.body
-
-    const result = await UserServices.putUserIntoDB(userId, updatedUserData)
+    const updatedUserData = { ...req.body, userId }
+    const zodParsedData = userUpdateValidationSchema.parse(updatedUserData)
+    const result = await UserServices.putUserIntoDB(userId, zodParsedData)
 
     if (!result) {
       res.status(404).json({

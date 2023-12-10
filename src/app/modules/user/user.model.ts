@@ -69,10 +69,8 @@ const userSchema = new Schema<TUser, UserModel>(
 )
 
 userSchema.pre('save', async function (next) {
-  // console.log(this, 'pre hook : we will save  data');
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this // doc
-  // hashing password and save into DB
   user.password = await bcrypt.hash(
     user.password,
     Number(config.bcrypt_salt_rounds),
@@ -101,7 +99,7 @@ userSchema.pre('aggregate', function (next) {
 })
 
 userSchema.statics.isUserExists = async function (id: number) {
-  const existingUser = await User.findOne({ id })
+  const existingUser = await User.findOne({ userId: id })
   return existingUser
 }
 

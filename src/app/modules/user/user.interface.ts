@@ -1,23 +1,23 @@
 import { Model } from 'mongoose'
 
-interface TFullName {
+export type TFullName = {
   firstName: string
   lastName: string
 }
 
-interface TAddress {
+export type TAddress = {
   street: string
   city: string
   country: string
 }
 
-interface TOrder {
+export type TOrder = {
   productName: string
   price: number
   quantity: number
 }
 
-interface TUser {
+export type TUser = {
   userId: number
   username: string
   password: string
@@ -34,5 +34,3 @@ interface TUser {
 export interface UserModel extends Model<TUser> {
   isUserExists(id: number): Promise<TUser | null>
 }
-
-export { TUser, TFullName, TAddress, TOrder }
