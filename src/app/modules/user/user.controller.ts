@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { UserServices } from './user.service'
 import {
-  userSchema as userValidationSchema,
+  userValidationSchema,
   userUpdateSchema as userUpdateValidationSchema,
 } from './user.validation'
 

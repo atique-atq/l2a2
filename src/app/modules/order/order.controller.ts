@@ -1,7 +1,6 @@
 import { orderSchema as orderValidationSchema } from './order.validation'
 import { Request, Response } from 'express'
 import { OrderServices } from './order.service'
-import { Order } from './order.model'
 
 const addProductToUserOrders = async (req: Request, res: Response) => {
   try {

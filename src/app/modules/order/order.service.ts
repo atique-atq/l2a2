@@ -1,6 +1,5 @@
 import { User } from './../user/user.model'
 import { TOrder } from './order.interface'
-import { Order } from './order.model'
 
 const addProductToOrderIntoUserDb = async (
   userId: number,

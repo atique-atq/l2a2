@@ -1,11 +1,11 @@
 import { TUser } from './user.interface'
 import { User } from './user.model'
 
-const createUserIntoDB = async (UserData: TUser) => {
+const createUserIntoDB = async (UserData: any) => {
   if (await User.isUserExists(UserData.userId)) {
     throw new Error('User already exists!')
   }
-  const result = await User.create(UserData)
+  const result = await User.create(UserData as TUser)
   return result
 }
 
@@ -35,7 +35,7 @@ const getSingleUserFromDB = async (id: number) => {
   return result
 }
 
-const putUserIntoDB = async (id: number, updatedUserData: TUser) => {
+const putUserIntoDB = async (id: number, updatedUserData: any) => {
   const existingUser = await User.isUserExists(id)
   if (!existingUser) {
     return null
@@ -43,11 +43,13 @@ const putUserIntoDB = async (id: number, updatedUserData: TUser) => {
 
   const updatedUser = await User.findOneAndUpdate(
     { userId: id },
-    updatedUserData,
-    { new: true }, // Returns the modified document
+    updatedUserData as TUser,
+    { new: true },
   )
+  if (!updatedUser) {
+    return null
+  }
 
-  // Extract the necessary fields for the response
   const responseData = {
     userId: updatedUser.userId,
     username: updatedUser.username,

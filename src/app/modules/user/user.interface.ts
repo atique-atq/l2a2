@@ -1,4 +1,4 @@
-import { Model } from 'mongoose'
+import { Document, Model } from 'mongoose'
 
 export type TFullName = {
   firstName: string
@@ -17,7 +17,7 @@ export type TOrder = {
   quantity: number
 }
 
-export type TUser = {
+export type TUser = Document & {
   userId: number
   username: string
   password: string

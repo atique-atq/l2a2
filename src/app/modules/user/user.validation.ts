@@ -1,5 +1,3 @@
-// user.validation.ts
-
 import { z } from 'zod'
 
 const fullNameSchema = z.object({
@@ -19,7 +17,7 @@ const orderSchema = z.object({
   quantity: z.number({ required_error: 'Quantity is required' }),
 })
 
-const baseUserSchema = z.object({
+export const userValidationSchema = z.object({
   userId: z.number({ required_error: 'User ID is required' }),
   username: z.string({ required_error: 'Username is required' }),
   password: z.string({ required_error: 'Password is required' }),
@@ -27,12 +25,10 @@ const baseUserSchema = z.object({
   age: z.number({ required_error: 'Age is required' }),
   email: z.string({ required_error: 'Email is required' }),
   isActive: z.boolean().optional().default(true),
+  isDeleted: z.boolean().optional().default(false),
   hobbies: z.array(z.string({ required_error: 'Hobby is required' })),
   address: addressSchema,
   orders: z.array(orderSchema),
-  isDeleted: z.boolean().optional().default(false),
 })
 
-export const userSchema = baseUserSchema
-
-export const userUpdateSchema = userSchema.partial()
+export const userUpdateSchema = userValidationSchema.partial()
