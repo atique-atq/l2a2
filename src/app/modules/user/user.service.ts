@@ -6,7 +6,25 @@ const createUserIntoDB = async (UserData: any) => {
     throw new Error('User already exists!')
   }
   const result = await User.create(UserData as TUser)
-  return result
+  const responseData = {
+    userId: result.userId,
+    username: result.username,
+    fullName: {
+      firstName: result.fullName.firstName,
+      lastName: result.fullName.lastName,
+    },
+    age: result.age,
+    email: result.email,
+    isActive: result.isActive,
+    hobbies: result.hobbies,
+    address: {
+      street: result.address.street,
+      city: result.address.city,
+      country: result.address.country,
+    },
+  }
+
+  return responseData
 }
 
 const getAllUsersFromDB = async () => {
