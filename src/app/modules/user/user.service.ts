@@ -70,6 +70,10 @@ const putUserIntoDB = async (id: number, updatedUserData: TUser) => {
 }
 
 const deleteUserFromDB = async (id: number) => {
+  const existingUser = await User.isUserExists(id)
+  if (!existingUser) {
+    return null
+  }
   const result = await User.updateOne({ id }, { isDeleted: true })
   return result
 }
