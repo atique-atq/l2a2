@@ -23,7 +23,14 @@ const getAllOrdersByUserIdFromDB = async (id: number) => {
   if (!existingUser) {
     return null
   }
-  return existingUser.orders
+  const orders = existingUser.orders
+  return orders.map((order) => {
+    return {
+      productName: order.productName,
+      price: order.price,
+      quantity: order.quantity,
+    }
+  })
 }
 
 const getTotalPriceOfOrdersByUserIdFromDb = async (id: number) => {
