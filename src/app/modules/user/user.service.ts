@@ -31,8 +31,29 @@ const getAllUsersFromDB = async () => {
 }
 
 const getSingleUserFromDB = async (id: number) => {
-  const result = await User.aggregate([{ $match: { userId: id } }])
-  return result
+  const existingUser = await User.isUserExists(id)
+  if (!existingUser) {
+    return null
+  }
+  const responseData = {
+    userId: existingUser.userId,
+    username: existingUser.username,
+    fullName: {
+      firstName: existingUser.fullName.firstName,
+      lastName: existingUser.fullName.lastName,
+    },
+    age: existingUser.age,
+    email: existingUser.email,
+    isActive: existingUser.isActive,
+    hobbies: existingUser.hobbies,
+    address: {
+      street: existingUser.address.street,
+      city: existingUser.address.city,
+      country: existingUser.address.country,
+    },
+  }
+
+  return responseData
 }
 
 const putUserIntoDB = async (id: number, updatedUserData: any) => {
@@ -76,7 +97,7 @@ const deleteUserFromDB = async (id: number) => {
   if (!existingUser) {
     return null
   }
-  const result = await User.updateOne({ id }, { isDeleted: true })
+  const result = await User.updateOne({ userId: id }, { isDeleted: true })
   return result
 }
 
