@@ -14,8 +14,7 @@ app.use('/api/users', UserRoutes)
 app.use('/api/users', OrderRoutes)
 
 const getAController = (req: Request, res: Response) => {
-  const a = 120
-  res.json({ num: a })
+  res.json({ success: true, message: 'welcome to the API' })
 }
 
 app.get('/', getAController)
